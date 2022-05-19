@@ -1,0 +1,8 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 4H8C5.79086 4 4 5.79086 4 8V9.33333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M20 28H24C26.2091 28 28 26.2091 28 24V20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15.2678 16.1573L13.1767 14.0662C12.7078 13.5974 12.0719 13.334 11.4089 13.334H6.5C5.11929 13.334 4 14.4533 4 15.834V25.5007C4 26.8814 5.11929 28.0007 6.5 28.0007H13.5C14.8807 28.0007 16 26.8814 16 25.5007V17.9251C16 17.262 15.7366 16.6261 15.2678 16.1573Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M16.0013 18.6673H12.4457C11.4639 18.6673 10.668 17.8714 10.668 16.8895V13.334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<circle cx="21.3333" cy="7.99935" r="5.33333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M28.0015 14.6675L25.1055 11.7715" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

@@ -1,0 +1,90 @@
+{% extends 'base_employers.html' %}
+{% load blog-tags  thumbnail static%}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+    		<section class="crumbs">
+			<div class="container">
+				<div class="crumbs__wrapper">
+					<svg>
+						<use xlink:href="./images/sprites.svg#home"></use>
+					</svg>
+					<ol>
+						<li><a href="{% url 'blog:home' %}">Главная  </a></li>
+                            <li><a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a></li>
+						<li>
+                            {{ post.title}}</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<section class="news-full page">
+			<div class="container">
+				<div class="page__container">
+					<main class="page__main">
+						<h1 class="title-h1">
+                            {{ post.title}}
+							<div class="news-full__date">
+                                {{ post.published_date|date:"d M Y"}}
+								<div class="news-full__titlecat"> <a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
+                                </div>
+							</div>
+						</h1>
+						<div class="news-full__preview">
+                            {% thumbnail post.image "810x480" as im %}
+                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                             class="img-fluid">
+                                        {% empty %}
+                                        <img src="{% static 'images/no-image.png' %}" width="100%"  >
+                                    {% endthumbnail %}
+                        </div>
+						<div class="typography">
+							{{ post.text|safe }}
+						</div>
+
+<div class="gallery popup-gallery">
+					<div class="gallery__item"> <a href="{% static 'images/gallery.jpg' %}"> <img src="{% static 'images/gallery.jpg' %}" alt=""></a></div>
+</div>
+{#{% if photoitems %}#}
+{#    		<section class="news-full page">#}
+{#			<div class="container">#}
+{##}
+{#				<div class="gallery popup-gallery">#}
+{#                    {% for photo in photoitems %}#}
+{#					<div class="gallery__item">#}
+{#                        <a href="{{ photo.image.url}}">#}
+{#                             {% thumbnail photo.image "330x223" as im %}#}
+{#                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"#}
+{#                                             class="img-fluid">#}
+{#                                        {% empty %}#}
+{#                                        <img src="{% static 'images/no-image.png' %}" width="100%"  >#}
+{#                                    {% endthumbnail %}#}
+{#                        </a>#}
+{#                    </div>#}
+{#				{% endfor %}#}
+{#				</div>#}
+{#			</div>#}
+{#		</section>#}
+{#{% endif %}#}
+
+
+					</main>
+					<aside class="page__aside">
+						<h2 class="title-h2">
+							<svg>
+								<use xlink:href="./images/sprites.svg#news-paper"></use>
+							</svg>Похожие новости
+						</h2>
+
+                        {% for sim_post in posts_similar %}
+						<div class="news-item news-item--employee"> <a class="news-item__title" href="">
+                            {{ sim_post.title}}</a>
+							<div class="news-item__date date-pub">
+								 10 ноября 2021</div>
+						</div>
+                        {% endfor %}
+
+					</aside>
+				</div>
+			</div>
+		</section>
+{% endblock %}

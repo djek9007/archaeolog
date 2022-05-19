@@ -1,0 +1,111 @@
+{% extends 'base_employers.html' %}
+{% load blog-tags  thumbnail static%}
+{% block title %}{{ category.name }}{% endblock %}
+{% block content %}
+    		<section class="crumbs">
+			<div class="container">
+				<div class="crumbs__wrapper">
+					<svg>
+						<use xlink:href="./images/sprites.svg#home"></use>
+					</svg>
+					<ol>
+						<li><a href="{% url 'blog:home' %}">Главная  </a></li>
+						<li>{{ category.name }}</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<section class="news-page page">
+			<div class="container">
+				<div class="page__container">
+					<main class="page__main">
+						<h1 class="title-h1">
+							 {{ category.name }}</h1>
+                        {% for post in posts %}
+						<div class="news-item news-item--employee news-item--newspage">
+                            <a class="news-item__title" href="{{ post.get_absolute_url }}">
+                                {{ post.title}}</a>
+							<div class="news-item__date date-pub">
+                                {{ post.published_date|date:"d M Y"}}</div>
+						</div>
+                        {% endfor %}
+
+						<div class="pagination">
+							<div class="pagination__left">
+								<input class="pagination__input" type="text" value="1">
+								<div class="pagination__from">
+									      из 34301</div>
+								<div class="pagination__btns">
+									<button class="pagination__btn pagination__btn--prev">
+										<svg>
+											<use xlink:href="./images/sprites.svg#left"></use>
+										</svg>
+									</button>
+									<button class="pagination__btn pagination__btn--next">
+										<svg>
+											<use xlink:href="./images/sprites.svg#right"></use>
+										</svg>
+									</button>
+								</div>
+							</div>
+							<div class="pagination__right">
+								<div>
+									 Посмотреть по:</div>
+								<select class="pagination__select" name="">
+									<option value="20">20  </option>
+									<option value="50">50      </option>
+									<option value="100">100  </option>
+								</select>
+								<div>
+									 записей</div>
+							</div>
+						</div>
+					</main>
+					<aside class="page__aside">
+						<h2 class="title-h2">
+							<svg>
+								<use xlink:href="./images/sprites.svg#calendar"></use>
+							</svg>Архив
+						</h2>
+						<div class="aside-menu aside-menu--nosticky">
+							<ul>
+								<li class="is-active"><span>
+										 2022 год</span></li>
+								<li><a href="">2021 год</a></li>
+								<li><a href="">2020 год</a></li>
+								<li><a href="">2019 год</a></li>
+								<li><a href="">2018 год</a></li>
+							</ul>
+						</div>
+						<h2 class="title-h2">
+							<svg>
+								<use xlink:href="./images/sprites.svg#calendar"></use>
+							</svg>Ближайшие события
+						</h2>
+                        {% event_show count=2 as events %}
+                        {% for event in events %}
+						<div class="event event--employees">
+							<div class="event__image"> <a href="{{ event.get_absolute_url }}">
+                                {% thumbnail event.image "330x140" as im %}
+                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                             class="img-fluid">
+                                        {% empty %}
+                                        <img src="{% static 'images/no-image.png' %}" width="330" height="140" >
+                                    {% endthumbnail %}
+                            </a></div>
+							<div class="event__wrap">
+								<div class="event__date date-pub">
+									 {{ event.event_published_date|date:"d M Y"}}</div>
+								<div class="event__title"><a href="{{ event.get_absolute_url }}">
+                                    {{ event.title }}</a></div>
+								<div class="event__intro">
+									 {{ event.text|truncatewords:20|safe }}</div>
+							</div>
+						</div>
+                        {% endfor %}
+
+					</aside>
+				</div>
+			</div>
+		</section>
+{% endblock %}

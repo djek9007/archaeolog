@@ -1,0 +1,143 @@
+{% extends 'base_employers.html' %}
+{% load static thumbnail %}
+{% block title %}Сотрудники{% endblock %}
+{% block content %}
+    <section class="crumbs">
+        <div class="container">
+            <div class="crumbs__wrapper">
+                <svg>
+                    <use xlink:href="{% static 'images/sprites.svg#home' %}"></use>
+                </svg>
+                <ol>
+                    <li><a href="{% url 'blog:home' %}">Главная </a></li>
+                    <li>Сотрудники</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <section class="emplyees page">
+        <div class="container">
+            <div class="page__container">
+                <main class="page__main">
+                    <h1 class="title-h1">
+                        Сотрудники</h1>
+                    <div class="filter"><span class="filter__item is-active" href="">А    </span><a class="filter__item"
+                                                                                                    href="">Б </a><a
+                            class="filter__item" href="">В </a><a class="filter__item" href="">Г </a><a
+                            class="filter__item" href="">Д </a><a class="filter__item" href="">Е </a><a
+                            class="filter__item" href="">Ж </a><a class="filter__item" href="">З </a><a
+                            class="filter__item" href="">И </a><a class="filter__item" href="">К </a><a
+                            class="filter__item" href="">Л </a><a class="filter__item" href="">М </a><a
+                            class="filter__item" href="">Н </a><a class="filter__item" href="">О </a><a
+                            class="filter__item" href="">П </a><a class="filter__item" href="">Р </a><a
+                            class="filter__item" href="">С </a><a class="filter__item" href="">Т </a><a
+                            class="filter__item" href="">У </a><a class="filter__item" href="">Ф </a><a
+                            class="filter__item" href="">Х </a><a class="filter__item" href="">Ц </a><a
+                            class="filter__item" href="">Ч </a><a class="filter__item" href="">Ш </a><a
+                            class="filter__item" href="">Щ </a><a class="filter__item" href="">Э </a><a
+                            class="filter__item" href="">Ю </a><a class="filter__item" href="">Я </a></div>
+                    <form class="employees__search" action="">
+                        <input class="employees__search-input" type="text" placeholder="Поиск по ФИО или должности">
+                        <button class="employees__search-btn">
+                            <svg>
+                                <use xlink:href="{% static 'images/sprites.svg#search' %}"></use>
+                            </svg>
+                        </button>
+                    </form>
+                    <div class="employees__notfound" style="display: none;">По запросу ничего не найдено</div>
+                    <div class="employees__list">
+                        {% for employer in employess %}
+                            <div class="employees-item">
+                                <div class="employees-item__image"><a href="{{ employer.get_absolute_url }}">
+
+                                    {% thumbnail employer.photo "74x83" as im %}
+                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                             class="img-fluid">
+                                        {% empty %}
+                                        <img src="{% static 'images/no-user.jpg' %}" width="62" height="83" >
+                                    {% endthumbnail %}
+                                    <img src="{{ employer.photo }}" alt=""></a></div>
+                                <div class="employees-item__wrapper">
+                                    <div class="employees-item__title"><a
+                                            href="{{ employer.get_absolute_url }}">{{ employer.name }}</a></div>
+                                    <div class="employees-item__subtitle">
+                                        {{ employer.regali }} </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                    <div class="pagination">
+                        <div class="pagination__left">
+                            <input class="pagination__input" type="text" value="1">
+                            <div class="pagination__from">
+                                из 34301
+                            </div>
+                            <div class="pagination__btns">
+                                <button class="pagination__btn pagination__btn--prev">
+                                    <svg>
+                                        <use xlink:href="{% static 'images/sprites.svg#left' %}"></use>
+                                    </svg>
+                                </button>
+                                <button class="pagination__btn pagination__btn--next">
+                                    <svg>
+                                        <use xlink:href="{% static 'images/sprites.svg#right' %}"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="pagination__right">
+                            <div>
+                                Посмотреть по:
+                            </div>
+                            <select class="pagination__select" name="">
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <div>
+                                записей
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <aside class="page__aside">
+                    <h2 class="title-h2">
+                        <svg>
+                            <use xlink:href="./images/sprites.svg#calendar"></use>
+                        </svg>
+                        Ближайшие события
+                    </h2>
+                    <div class="event event--employees">
+                        <div class="event__image"><a href=""><img src="images/event-3.jpg" alt=""></a></div>
+                        <div class="event__wrap">
+                            <div class="event__date date-pub">
+                                10 ноября 2021
+                            </div>
+                            <div class="event__title"><a href="">Археологические находки 2016 года открыли новые
+                                страницы истории Казахстана</a></div>
+                            <div class="event__intro">
+                                Сегодня - десятый звездный день обшенациональной акции 25 звездных дней «Ұлы Дала Елі -
+                                25 основ
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event event--employees">
+                        <div class="event__image"><a href=""><img src="images/event-3.jpg" alt=""></a></div>
+                        <div class="event__wrap">
+                            <div class="event__date date-pub">
+                                10 ноября 2021
+                            </div>
+                            <div class="event__title"><a href="">Археологические находки 2016 года открыли новые
+                                страницы истории Казахстана</a></div>
+                            <div class="event__intro">
+                                Сегодня - десятый звездный день обшенациональной акции 25 звездных дней «Ұлы Дала Елі -
+                                25 основ
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+{% endblock %}

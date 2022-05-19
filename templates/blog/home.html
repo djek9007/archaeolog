@@ -1,0 +1,396 @@
+{% extends 'base.html' %}
+{% load blog-tags  thumbnail static%}
+{% block content %}
+    		<section class="expedition">
+			<div class="container">
+				<div class="expedition__header">
+					<h2 class="title-h2">
+						<svg>
+							<use xlink:href="{% static 'images/sprites.svg#file' %}"></use>
+						</svg>Экспедиции
+					</h2>
+					<div class="expedition__btns">
+						<button class="expedition__btn" id="expedition-prev">
+							<svg>
+								<use xlink:href="{% static 'images/sprites.svg#arrow-left' %}"></use>
+							</svg>
+						</button>
+						<button class="expedition__btn" id="expedition-next">
+							<svg>
+								<use xlink:href="{% static 'images/sprites.svg#arrow-right' %}"></use>
+							</svg>
+						</button>
+					</div>
+				</div>
+				<div class="expedition__slider expedition-slider">
+					<div class="expedition-slider__item">
+						<div class="exp-item">
+							<div class="exp-item__preview"> <a href=""><img src="{% static 'images/expedition-1.png' %}" alt=""></a></div>
+							<div class="exp-item__date date-pub">
+								 10 ноября 2021</div>
+							<div class="exp-item__title"><a href="">Восточно-Казахстанская археологическая экспедиция </a></div>
+						</div>
+					</div>
+					<div class="expedition-slider__item">
+						<div class="exp-item">
+							<div class="exp-item__preview"> <a href=""><img src="{% static 'images/expedition-2.png' %}" alt=""></a></div>
+							<div class="exp-item__date date-pub">
+								 10 ноября 2021</div>
+							<div class="exp-item__title"><a href="">Восточно-Казахстанская археологическая экспедиция </a></div>
+						</div>
+					</div>
+					<div class="expedition-slider__item">
+						<div class="exp-item">
+							<div class="exp-item__preview"> <a href=""><img src="{% static 'images/expedition-3.png' %}" alt=""></a></div>
+							<div class="exp-item__date date-pub">
+								 10 ноября 2021</div>
+							<div class="exp-item__title"><a href="">Восточно-Казахстанская археологическая экспедиция </a></div>
+						</div>
+					</div>
+					<div class="expedition-slider__item">
+						<div class="exp-item">
+							<div class="exp-item__preview"> <a href=""><img src="images/expedition-4.png" alt=""></a></div>
+							<div class="exp-item__date date-pub">
+								 10 ноября 2021</div>
+							<div class="exp-item__title"><a href="">Восточно-Казахстанская археологическая экспедиция </a></div>
+						</div>
+					</div>
+					<div class="expedition-slider__item">
+						<div class="exp-item">
+							<div class="exp-item__preview"> <a href=""><img src="{% static 'images/expedition-4.png' %}" alt=""></a></div>
+							<div class="exp-item__date date-pub">
+								 10 ноября 2021</div>
+							<div class="exp-item__title"><a href="">Восточно-Казахстанская археологическая экспедиция </a></div>
+						</div>
+					</div>
+				</div><a class="expedition__more" href="">перейти в раздел </a>
+			</div>
+		</section>
+		<section class="events-block">
+			<div class="container">
+				<div class="events-block__container">
+					<div class="events-block__events">
+						<h2 class="title-h2">
+							<svg>
+								<use xlink:href="{% static 'images/sprites.svg#calendar' %}"></use>
+							</svg>Ближайшие события
+						</h2>
+                        {% event_show count=2 as events %}
+                        {% for event in events %}
+						<div class="event">
+							<div class="event__image">
+                                <a href="{{ event.get_absolute_url }}">
+                                    {% thumbnail event.image "200x148" as im %}
+                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                             class="img-fluid">
+                                        {% empty %}
+                                        <img src="{% static 'images/no-image.png' %}" width="520" height="345" >
+                                    {% endthumbnail %}
+                                </a>
+                            </div>
+							<div class="event__wrap">
+								<div class="event__date date-pub">
+                                    {{ event.event_published_date|date:"d M Y"}}</div>
+								<div class="event__title"><a href="{{ event.get_absolute_url }}">{{  event.title}}</a></div>
+								<div class="event__intro">
+									  {{ event.text|truncatewords:10|safe }}</div>
+							</div>
+						</div>
+                        {% endfor %}
+
+					</div>
+					<div class="events-block__calendar">
+						<div id="calendar">      </div>
+					</div>
+				</div>
+			</div>
+		</section>
+    <section class="news-block">
+			<div class="container">
+				<h2 class="title-h2">
+					<svg>
+						<use xlink:href="./images/sprites.svg#news-paper"></use>
+					</svg>Новости
+				</h2>
+				<div class="news-block__container">
+                    {% show_news as newses %}
+                    {% for news in newses %}
+                        {% if forloop.first %}
+					<div class="news-block__main">
+						<div class="news-main"><a href="{{ news.get_absolute_url }}">
+                              {% thumbnail news.image "520x345" as im %}
+                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                             class="img-fluid">
+                                        {% empty %}
+                                        <img src="{% static 'images/no-image.png' %}" width="520" height="345" >
+                                    {% endthumbnail %}
+                        </a>
+							<div class="news-main__inf">
+								<div class="news-main__title"> <a href="{{ news.get_absolute_url }}">
+										 {{ news.title }}</a></div>
+								<div class="news-main__date date-pub">
+									 {{ news.published_date|date:"d M Y"}}</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="news-block__other">
+                    {% elif  forloop.counter > 1 %}
+						<div class="news-item"> <a class="news-item__title" href="{{ news.get_absolute_url }}">
+                            {{ news.title }}</a>
+							<div class="news-item__date date-pub">
+								 {{ news.published_date|date:"d M Y"}}</div>
+						</div>
+                    {% endif %}
+                 {% endfor %}
+					</div>
+
+
+				</div><a class="news-block__more" href="/novosti/">перейти в раздел</a>
+			</div>
+		</section>
+
+		<section class="publications">
+			<div class="container">
+				<h2 class="title-h2">
+					<svg>
+						<use xlink:href="{% static 'images/sprites.svg#news-paper' %}"></use>
+					</svg>Публикации
+				</h2>
+				<div class="tab-wrapper tab-wrapper-1">
+					<div class="tabs">
+						<div class="tab">
+							 Монографии</div>
+						<div class="tab">
+							 Сборники</div>
+					</div>
+					<div class="tab_content">
+						<div class="tab_item">
+							<div class="publications-slider">
+								<div class="publications-slider__item">
+									<div class="publication">
+										<div class="publication__preview"> <a href=""><img src="{% static 'images/pub-1.png' %}" alt=""><span class="publication__readmore">Читать</span></a></div>
+										<div class="publication__title"> <a href="">Краткая история развития материальной культуры Павлодарского Прииртышья  </a></div>
+									</div>
+								</div>
+								<div class="publications-slider__item">
+									<div class="publication">
+										<div class="publication__preview"> <a href=""><img src="{% static 'images/pub-1.png' %}" alt=""><span class="publication__readmore">Читать</span></a></div>
+										<div class="publication__title"> <a href="">Краткая история развития материальной культуры Павлодарского Прииртышья  </a></div>
+									</div>
+								</div>
+								<div class="publications-slider__item">
+									<div class="publication">
+										<div class="publication__preview"> <a href=""><img src="{% static 'images/pub-1.png' %}" alt=""><span class="publication__readmore">Читать</span></a></div>
+										<div class="publication__title"> <a href="">Краткая история развития материальной культуры Павлодарского Прииртышья  </a></div>
+									</div>
+								</div>
+								<div class="publications-slider__item">
+									<div class="publication">
+										<div class="publication__preview"> <a href=""><img src="{% static 'images/pub-1.png' %}" alt=""><span class="publication__readmore">Читать</span></a></div>
+										<div class="publication__title"> <a href="">Краткая история развития материальной культуры Павлодарского Прииртышья  </a></div>
+									</div>
+								</div>
+							</div><a class="publications__more" href="">перейти в раздел</a>
+						</div>
+						<div class="tab_item">
+							<div class="publications-slider">
+								<div class="publications-slider__item">
+									<div class="publication">
+										<div class="publication__preview"> <a href=""><img src="{% static 'images/pub-1.png' %}" alt=""><span class="publication__readmore">Читать</span></a></div>
+										<div class="publication__title"> <a href="">Краткая история развития материальной культуры Павлодарского Прииртышья  </a></div>
+									</div>
+								</div>
+								<div class="publications-slider__item">
+									<div class="publication">
+										<div class="publication__preview"> <a href=""><img src="{% static 'images/pub-1.png' %}" alt=""><span class="publication__readmore">Читать</span></a></div>
+										<div class="publication__title"> <a href="">Краткая история развития материальной культуры Павлодарского Прииртышья  </a></div>
+									</div>
+								</div>
+								<div class="publications-slider__item">
+									<div class="publication">
+										<div class="publication__preview"> <a href=""><img src="{% static 'images/pub-1.png' %}" alt=""><span class="publication__readmore">Читать</span></a></div>
+										<div class="publication__title"> <a href="">Краткая история развития материальной культуры Павлодарского Прииртышья  </a></div>
+									</div>
+								</div>
+								<div class="publications-slider__item">
+									<div class="publication">
+										<div class="publication__preview"> <a href=""><img src="{% static 'images/pub-1.png' %}" alt=""><span class="publication__readmore">Читать</span></a></div>
+										<div class="publication__title"> <a href="">Краткая история развития материальной культуры Павлодарского Прииртышья  </a></div>
+									</div>
+								</div>
+							</div><a class="publications__more" href="">перейти в раздел</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="publications">
+			<div class="container">
+				<h2 class="title-h2">
+					<svg>
+						<use xlink:href="{% static 'images/sprites.svg#media' %}"></use>
+					</svg>Мультимедиа
+				</h2>
+				<div class="tab-wrapper tab-wrapper-2">
+					<div class="tabs">
+						<div class="tab">
+							 Фото</div>
+						<div class="tab">
+							 Видео</div>
+						<div class="tab">
+							 Лекторий</div>
+					</div>
+					<div class="tab_content">
+						<div class="tab_item">
+							<div class="multimedia-slider">
+								<div class="multimedia-slider__item">
+									<div class="multimedia"> <a href="">      <img src="{% static 'images/multimedia.png' %}" alt=""></a>
+										<div class="multimedia__wrap"> <a class="multimedia__title" href="">Уголовную ответственность введут в Казахстане за незаконные археологические раскопки</a>
+											<div class="multimedia__ftr">
+												<div class="multimedia__views">
+													<svg>
+														<use xlink:href="{% static 'images/sprites.svg#image' %}"></use>
+													</svg>23
+												</div>
+												<div class="multimedia__date date-pub">
+													 10 ноября 2021</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="multimedia-slider__item">
+									<div class="multimedia"> <a href="">      <img src="{% static 'images/multimedia.png' %}" alt=""></a>
+										<div class="multimedia__wrap"> <a class="multimedia__title" href="">Уголовную ответственность введут в Казахстане за незаконные археологические раскопки</a>
+											<div class="multimedia__ftr">
+												<div class="multimedia__views">
+													<svg>
+														<use xlink:href="{% static 'images/sprites.svg#image' %}"></use>
+													</svg>23
+												</div>
+												<div class="multimedia__date date-pub">
+													 10 ноября 2021</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="multimedia-slider__item">
+									<div class="multimedia"> <a href="">      <img src="{% static 'images/multimedia.png' %}" alt=""></a>
+										<div class="multimedia__wrap"> <a class="multimedia__title" href="">Уголовную ответственность введут в Казахстане за незаконные археологические раскопки</a>
+											<div class="multimedia__ftr">
+												<div class="multimedia__views">
+													<svg>
+														<use xlink:href="{% static 'images/sprites.svg#image' %}"></use>
+													</svg>23
+												</div>
+												<div class="multimedia__date date-pub">
+													 10 ноября 2021</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><a class="publications__more" href="">перейти в раздел</a>
+						</div>
+						<div class="tab_item">
+							<div class="multimedia-slider">
+								<div class="multimedia-slider__item">
+									<div class="multimedia"> <a href="">      <img src="{% static 'images/multimedia.png' %}" alt=""></a>
+										<div class="multimedia__wrap"> <a class="multimedia__title" href="">Уголовную ответственность введут в Казахстане за незаконные археологические раскопки</a>
+											<div class="multimedia__ftr">
+												<div class="multimedia__views">
+													<svg>
+														<use xlink:href="{% static 'images/sprites.svg#image' %}"></use>
+													</svg>23
+												</div>
+												<div class="multimedia__date date-pub">
+													 10 ноября 2021</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="multimedia-slider__item">
+									<div class="multimedia"> <a href="">      <img src="{% static 'images/multimedia.png' %}" alt=""></a>
+										<div class="multimedia__wrap"> <a class="multimedia__title" href="">Уголовную ответственность введут в Казахстане за незаконные археологические раскопки</a>
+											<div class="multimedia__ftr">
+												<div class="multimedia__views">
+													<svg>
+														<use xlink:href="{% static 'images/sprites.svg#image' %}"></use>
+													</svg>23
+												</div>
+												<div class="multimedia__date date-pub">
+													 10 ноября 2021</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="multimedia-slider__item">
+									<div class="multimedia"> <a href="">      <img src="{% static 'images/multimedia.png' %}" alt=""></a>
+										<div class="multimedia__wrap"> <a class="multimedia__title" href="">Уголовную ответственность введут в Казахстане за незаконные археологические раскопки</a>
+											<div class="multimedia__ftr">
+												<div class="multimedia__views">
+													<svg>
+														<use xlink:href="{% static 'images/sprites.svg#image' %}"></use>
+													</svg>23
+												</div>
+												<div class="multimedia__date date-pub">
+													 10 ноября 2021</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><a class="publications__more" href="">перейти в раздел</a>
+						</div>
+						<div class="tab_item">
+							<div class="multimedia-slider">
+								<div class="multimedia-slider__item">
+									<div class="multimedia"> <a href="">      <img src="{% static 'images/multimedia.png' %}" alt=""></a>
+										<div class="multimedia__wrap"> <a class="multimedia__title" href="">Уголовную ответственность введут в Казахстане за незаконные археологические раскопки</a>
+											<div class="multimedia__ftr">
+												<div class="multimedia__views">
+													<svg>
+														<use xlink:href="{% static 'images/sprites.svg#image' %}"></use>
+													</svg>23
+												</div>
+												<div class="multimedia__date date-pub">
+													 10 ноября 2021</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="multimedia-slider__item">
+									<div class="multimedia"> <a href="">      <img src="{% static 'images/multimedia.png' %}" alt=""></a>
+										<div class="multimedia__wrap"> <a class="multimedia__title" href="">Уголовную ответственность введут в Казахстане за незаконные археологические раскопки</a>
+											<div class="multimedia__ftr">
+												<div class="multimedia__views">
+													<svg>
+														<use xlink:href="{% static 'images/sprites.svg#image' %}"></use>
+													</svg>23
+												</div>
+												<div class="multimedia__date date-pub">
+													 10 ноября 2021</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="multimedia-slider__item">
+									<div class="multimedia"> <a href="">      <img src="{% static 'images/multimedia.png' %}" alt=""></a>
+										<div class="multimedia__wrap"> <a class="multimedia__title" href="">Уголовную ответственность введут в Казахстане за незаконные археологические раскопки</a>
+											<div class="multimedia__ftr">
+												<div class="multimedia__views">
+													<svg>
+														<use xlink:href="{% static 'images/sprites.svg#image' %}"></use>
+													</svg>23
+												</div>
+												<div class="multimedia__date date-pub">
+													 10 ноября 2021</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><a class="publications__more" href="">перейти в раздел</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+{% endblock %}

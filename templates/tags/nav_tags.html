@@ -1,0 +1,28 @@
+{% load menu-tags mptt_tags %}
+{% show_menu as nodes %}
+
+{#<ul class="nav">#}
+{#    {% recursetree nodes %}#}
+{#        <li><a href="">{{ node.name }}</a>#}
+{#            {% if not node.is_leaf_node %}#}
+{#                <ul>#}
+{#                    <li><a href="">{{ children }}</a></li>#}
+{#                </ul>#}
+{#            {% endif %}#}
+{#        </li>#}
+{#    {% endrecursetree %}#}
+{#</ul>#}
+<ul class="nav">
+    {% recursetree nodes %}
+        <li>
+            {% if node.name %}
+                <a class="" href="/{% if node.slug %}{{ node.slug }}/{% else %}#{% endif %}">{{ node.name }}</a>
+            {% endif %}
+            {% if not node.is_leaf_node %}
+                <ul >
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>

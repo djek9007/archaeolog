@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="theme-color" content="#005757">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+		<link rel="icon" href="/favicon.ico">
+		<link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" href="/android-chrome-192x192.png" sizes="192x192">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <title>{% block title %}{% endblock %}</title>
+	</head>
+	<body>
+    <header class="header">
+			<div class="header__top-wrapper">
+				<div class="container">
+					<div class="header__top">
+						<div class="header__logo">
+							<button class="btn-mobile-menu for-devices">
+								<div class="btn-mobile-menu__open">
+									<svg>
+										<use xlink:href="{% static 'images/sprites.svg#close' %}"></use>
+									</svg>
+								</div>
+								<div class="btn-mobile-menu__close">
+									<svg>
+										<use xlink:href="{% static 'images/sprites.svg#menu' %}"></use>
+									</svg>
+								</div>
+							</button><a><img src="{% static 'images/logo.jpg' %}" alt=""></a>
+						</div>
+						<div class="header__nav">
+								{% include 'tags/nav_tags.html' %}
+							<div class="lng for-devices lng--mobile"><a href="">ҚАЗ</a><span class="is-active">
+									 РУС</span><a href="">ENG</a></div>
+						</div>
+						<div class="header__wrap">
+							<div class="header__lng lng"> <a href="">ҚАЗ</a><span class="is-active">
+									 РУС</span><a href="">ENG</a></div>
+							<div class="header__srch-btn"><a class="btn-search popup-with-form" href="#search">
+									<svg>
+										<use xlink:href="{% static 'images/sprites.svg#search' %}"></use>
+									</svg></a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+
+		{% block content %}{% endblock %}
+		<footer class="footer">
+			<div class="container">
+				<div class="footer__logo">
+					<div class="footer__logo-image"> <a href=""><img src="images/logo2.svg" alt=""></a></div>
+					<div class="footer__logo-text">
+						<p>
+							 Республиканское государственное предприятие на право хозяйственного ведения</p>
+						<p>
+							 <b>Институт археологии им. А.Х. Маргулана</b></p>
+						<p>
+							 Комитета науки Министерства образования и науки Республики Казахстан</p>
+					</div>
+				</div>
+				<div class="footer__middle">
+					<ul class="footer__nav nav">
+						<li><a href="">Об Институте</a></li>
+						<li><a href="">Структура</a></li>
+						<li><a href="">Сотрудники</a></li>
+						<li><a href="">Деятельность</a></li>
+						<li><a href="">Издания</a></li>
+						<li><a href="">Наши услуги</a></li>
+						<li><a href="">СМИ о нас</a></li>
+					</ul>
+					<div class="footer__social social"> <a href="">
+							<svg>
+								<use xlink:href="./images/sprites.svg#fb"></use>
+							</svg></a><a href="">
+							<svg>
+								<use xlink:href="./images/sprites.svg#tg"></use>
+							</svg></a><a href="">
+							<svg>
+								<use xlink:href="./images/sprites.svg#youtube"></use>
+							</svg></a><a href="">
+							<svg>
+								<use xlink:href="./images/sprites.svg#insta"></use>
+							</svg></a></div>
+				</div>
+				<div class="footer__btm">
+					<div class="footer__contacts">
+						<div class="footer__contact contact">
+							<div class="contact__ico">
+								<svg>
+									<use xlink:href="./images/sprites.svg#phone2"></use>
+								</svg>
+							</div>
+							<div class="contact__desc">
+								<div class="contact__subtitle">
+									 Телефон</div>
+								<div class="contact__title">        <a href="">8 800 080 4747 </a></div>
+							</div>
+						</div>
+						<div class="footer__contact contact">
+							<div class="contact__ico">
+								<svg>
+									<use xlink:href="./images/sprites.svg#envelope"></use>
+								</svg>
+							</div>
+							<div class="contact__desc">
+								<div class="contact__subtitle">
+									 Почта</div>
+								<div class="contact__title">        <a href="mailto:info@arhelogy.kz">info@arhelogy.kz</a></div>
+							</div>
+						</div>
+					</div>
+					<div class="footer__copyright">
+						 © 2009-2022 Институт археологии им. А.Х. Маргулана</div>
+				</div>
+			</div>
+		</footer>
+		<div class="is-hidden">
+			<form class="search-form" id="search" action="">
+				<input class="search-form__input" type="text" placeholder="Поиск ключевому слову">
+				<button class="search-form__btn">
+					<div class="for-desktop">Поиск</div>
+					<div class="for-devices">
+						<svg>
+							<use xlink:href="./images/sprites.svg#search"></use>
+						</svg>
+					</div>
+				</button>
+			</form>
+		</div>
+		<script>
+			if (!('IntersectionObserver' in window)) {
+				var script = document.createElement("script");
+				script.src = "https://raw.githubusercontent.com/w3c/IntersectionObserver/master/polyfill/intersection-observer.js";
+				document.getElementsByTagName('head')[0].appendChild(script);
+			}
+		</script>
+		<script src="{% static 'js/vendor.js'%}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+	</body>
+</html>

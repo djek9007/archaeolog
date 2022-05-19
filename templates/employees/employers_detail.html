@@ -1,0 +1,117 @@
+{% extends 'base_employers.html' %}
+{% load static thumbnail %}
+{% block title %}{% endblock %}
+{% block content %}
+    			<section class="crumbs">
+			<div class="container">
+				<div class="crumbs__wrapper">
+					<svg>
+						<use xlink:href="./images/sprites.svg#home"></use>
+					</svg>
+					<ol>
+						<li><a href="{% url 'blog:home' %}">Главная  </a></li>
+						<li><a href="{% url 'employees:employer-list' %}">Сотрудники</a></li>
+						<li>
+                            {{ employer.name}}</li>
+					</ol>
+				</div>
+			</div>
+		</section>
+		<section class="employee page">
+			<div class="container">
+				<div class="page__container">
+					<main class="page__main">
+						<div class="employee__header">
+							<div class="employee__avatar">
+
+                                            {% thumbnail employer.photo "74x83"  as im %}
+                                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-fluid">
+                                                {% empty %}
+                                                <img src="{% static 'images/no-user.jpg' %}" width="74" height="83" class="img-fluid">
+                                            {% endthumbnail %}
+
+{#                                    {% thumbnail <img src="{% static 'images/no-image.png' %}"> "74x83"  as im %}#}
+{#                                            <img src="{% static 'images/no-image.png' %}" width="{{ im.width }}" height="{{ im.height }}"class="img-fluid">#}
+{#                                     {% endthumbnail %}#}
+
+                            </div>
+							<div class="employee__description">
+								<h1 class="employee__title">
+									 {{ employer.name}}</h1>
+								<div class="employee__position">
+									  {{ employer.regali }}</div>
+								<div class="employee__email">
+									 E-mail: <a href="mailto:{{ employer.email}}">{{ employer.email}}</a></div>
+							</div>
+						</div>
+						<div class="tab-wrapper tab-wrapper-1">
+							<div class="tabs">
+								<div class="tab">
+									 Профиль</div>
+								<div class="tab">
+									 Список основных публикаций</div>
+								<div class="tab">
+									 Монографии</div>
+								<div class="tab">
+									 Проекты</div>
+							</div>
+							<div class="tab_content">
+								<div class="tab_item typography">
+									{{ employer.profile|safe }}
+
+								</div>
+								<div class="tab_item typography">
+									{{ employer.publication|safe }}
+								</div>
+								<div class="tab_item">
+									<div class="documents">
+                                        {% for mono in monografi %}
+										<div class="doc">
+											<div class="doc__image"><a href="">
+                                                {%if mono.image%}
+                                            {% thumbnail mono.image "184x246"  as im %}
+                                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-fluid">
+                                            {% endthumbnail %}
+                                            {%else%}
+                                            <img src="{% static 'images/no-image.png' %}"  class="img-fluid">
+                                            {%endif%}
+                                            </a></div>
+											<div class="doc__title"> <a href="">{{ mono.title}}  </a></div>
+										</div>
+                                        {% endfor %}
+
+									</div>
+								</div>
+								<div class="tab_item typography">
+                                    {{ employer.projects|safe}}
+								</div>
+							</div>
+						</div>
+					</main>
+					<aside class="page__aside">
+						<h2 class="title-h2">
+							<svg>
+								<use xlink:href="./images/sprites.svg#news-paper"></use>
+							</svg>Новости
+						</h2>
+						<div class="news-item news-item--employee"> <a class="news-item__title" href="">Закрывающую лицо руками мумию нашли в гробнице в Перу</a>
+							<div class="news-item__date date-pub">
+								 10 ноября 2021</div>
+						</div>
+						<div class="news-item news-item--employee"> <a class="news-item__title" href="">Закрывающую лицо руками мумию нашли в гробнице в Перу</a>
+							<div class="news-item__date date-pub">
+								 10 ноября 2021</div>
+						</div>
+						<div class="news-item news-item--employee"> <a class="news-item__title" href="">Закрывающую лицо руками мумию нашли в гробнице в Перу</a>
+							<div class="news-item__date date-pub">
+								 10 ноября 2021</div>
+						</div>
+						<div class="news-item news-item--employee"> <a class="news-item__title" href="">Закрывающую лицо руками мумию нашли в гробнице в Перу</a>
+							<div class="news-item__date date-pub">
+								 10 ноября 2021</div>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</section>
+{% endblock %}

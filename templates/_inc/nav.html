@@ -1,0 +1,59 @@
+{% load static mptt_tags menu-tags %}
+<header class="header header--index">
+			<div class="header__top-wrapper">
+				<div class="container">
+					<div class="header__top">
+						<div class="header__logo">
+							<button class="btn-mobile-menu for-devices">
+								<div class="btn-mobile-menu__open">
+									<svg>
+										<use xlink:href="{% static 'images/sprites.svg#close' %}"></use>
+									</svg>
+								</div>
+								<div class="btn-mobile-menu__close">
+									<svg>
+										<use xlink:href="{% static 'images/sprites.svg#menu' %}"></use>
+									</svg>
+								</div>
+							</button><a><img src="{% static 'images/logo.jpg' %}" alt=""></a>
+						</div>
+						<div class="header__nav">
+
+
+   {% include 'tags/nav_tags.html' %}
+
+
+							<div class="lng for-devices lng--mobile"><a href="">ҚАЗ</a><span class="is-active">
+									 РУС</span><a href="">ENG</a></div>
+						</div>
+						<div class="header__wrap">
+							<div class="header__lng lng"> <a href="">ҚАЗ</a><span class="is-active">
+									 РУС</span><a href="">ENG</a></div>
+							<div class="header__srch-btn"><a class="btn-search popup-with-form" href="#search">
+									<svg>
+										<use xlink:href="{% static 'images/sprites.svg#search' %}"></use>
+									</svg></a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="header__btm">
+					<div class="header__name">
+						<p>
+							 Республиканское государственное предприятие на право хозяйственного ведения</p>
+						<p>
+							 <b>Институт археологии им. А.Х. Маргулана</b></p>
+						<p>
+							 Комитета науки Министерства образования и науки Республики Казахстан</p>
+					</div>
+					<div class="header__links"> <a class="header__link header__link--add" href="">
+							<svg>
+								<use xlink:href="{% static 'images/sprites.svg#map' %}"></use>
+							</svg>Адрес на карте</a><a class="header__link" href="">
+							<svg>
+								<use xlink:href="{% static 'images/sprites.svg#phone' %}"></use>
+							</svg>Контакты</a></div>
+				</div>
+			</div>
+		</header>
