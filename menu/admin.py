@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
+from modeltranslation.admin import TranslationAdmin
 
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
@@ -8,7 +9,7 @@ from menu.models import Menu
 
 
 @admin.register(Menu)
-class MenuAdmin(DraggableMPTTAdmin):
+class MenuAdmin(DraggableMPTTAdmin, TranslationAdmin):
     """Статичные страницы"""
     list_display = ('tree_actions', 'indented_title', 'slug',)
     list_display_links = ('indented_title',)

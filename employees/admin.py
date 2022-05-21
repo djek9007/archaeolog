@@ -4,15 +4,18 @@ from django.contrib import admin
 
 # Register your models here.
 from django.utils.safestring import mark_safe
+from modeltranslation.admin import TranslationAdmin
 from mptt.admin import DraggableMPTTAdmin
 
-from employees.models import MonografiEmployer, Employer, Department
+from employees.models import  Employer, Department
 
 class DepartmentAdminForm(forms.ModelForm):
-    description = forms.CharField(label="Описание", widget=CKEditorUploadingWidget(), required=False)
+    description_kk = forms.CharField(label="Қазақша", widget=CKEditorUploadingWidget(), required=False)
+    description_ru = forms.CharField(label="на русском", widget=CKEditorUploadingWidget(), required=False)
+    description_en = forms.CharField(label="english", widget=CKEditorUploadingWidget(), required=False)
 
 @admin.register(Department)
-class DepartmentAdmin(DraggableMPTTAdmin):
+class DepartmentAdmin(DraggableMPTTAdmin, TranslationAdmin):
     """Статичные страницы"""
     list_display = ('tree_actions', 'indented_title', 'slug',)
     list_display_links = ('indented_title',)
@@ -28,36 +31,33 @@ class DepartmentAdmin(DraggableMPTTAdmin):
     save_on_top = True
     form = DepartmentAdminForm
 
-class MonografiEmployerAdminForm(forms.ModelForm):
-    description = forms.CharField(label="Описание монографии", widget=CKEditorUploadingWidget(), required=False)
-
-@admin.register(MonografiEmployer)
-class MonografiEmployerAdmin(admin.ModelAdmin):
-    list_display = ('title', 'employer','published', )
-    list_filter = ('employer', 'published',)
-    form = MonografiEmployerAdminForm
 
 class EmployerAdminForm(forms.ModelForm):
     """Виджет редактора ckeditor"""
-    profile = forms.CharField(label="Профиль сотрудника", widget=CKEditorUploadingWidget(), required=False)
-    publication = forms.CharField(label="Основные публикации сотрудника", widget=CKEditorUploadingWidget(), required=False)
-    projects = forms.CharField(label="Проекты сотрудника", widget=CKEditorUploadingWidget(), required=False)
+    profile_kk = forms.CharField(label="Профиль сотрудника на казахском", widget=CKEditorUploadingWidget(), required=False)
+    profile_ru = forms.CharField(label="Профиль сотрудника на русском", widget=CKEditorUploadingWidget(), required=False)
+    profile_en = forms.CharField(label="Профиль сотрудника на английском", widget=CKEditorUploadingWidget(), required=False)
+    publication_kk = forms.CharField(label="Основные публикации сотрудника на казахском", widget=CKEditorUploadingWidget(), required=False)
+    publication_ru = forms.CharField(label="Основные публикации сотрудника на русском", widget=CKEditorUploadingWidget(), required=False)
+    publication_en = forms.CharField(label="Основные публикации сотрудника на английском", widget=CKEditorUploadingWidget(), required=False)
+    projects_kk = forms.CharField(label="Проекты сотрудника на казахском", widget=CKEditorUploadingWidget(), required=False)
+    projects_ru = forms.CharField(label="Проекты сотрудника на русском", widget=CKEditorUploadingWidget(), required=False)
+    projects_en = forms.CharField(label="Проекты сотрудника на английском", widget=CKEditorUploadingWidget(), required=False)
 
 
     class Meta:
         model = Employer
         fields = '__all__'
 
-class MonografiEmployerInline(admin.StackedInline):
-    model = MonografiEmployer
+
 
 @admin.register(Employer)
-class EmployerAdmin(admin.ModelAdmin):
+class EmployerAdmin(TranslationAdmin):
     """Админка для сотруддника"""
     list_display = ('get_photo', 'name', 'regali', 'email', 'published', 'edit_date', 'views',)
     list_display_links = ('get_photo', 'name',)
     fields =('department','name', 'regali', 'email', 'get_photo', 'photo', 'profile', 'publication','projects','published_date','published',  )
-    inlines = [MonografiEmployerInline]
+
     form = EmployerAdminForm
     save_on_top = True
     readonly_fields = ('edit_date', 'views', 'get_photo',)

@@ -133,3 +133,5 @@ dmypy.json
 /menu/migrations/
 /pages/migrations/
 /static/
+/library/migrations/
+/library/migrations/

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,12 +44,16 @@ INSTALLED_APPS = [
     'menu.apps.MenuConfig',
     'pages.apps.PagesConfig',
     'employees.apps.EmployeesConfig',
+    'library.apps.LibraryConfig',
 
     'ckeditor',
     'ckeditor_uploader',
     'mptt',
     'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',
+
+    'admin_auto_filters',
+
 
 ]
 SITE_ID =1
@@ -123,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True
 
@@ -131,6 +136,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+gettext = lambda s: s
+
+LANGUAGES = (
+
+    ('ru', gettext('Russia')),
+    ('kk', gettext('Kazakh')),
+    ('en', gettext('English')),
+
+)
+LOCALE_PATHS =(
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

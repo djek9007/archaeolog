@@ -4,6 +4,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.utils.safestring import mark_safe
+from modeltranslation.admin import TranslationAdmin
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
 from blog.models import Category, Post, PhotoItem, Tag, FileItem
@@ -36,8 +37,9 @@ class ActionPublish(admin.ModelAdmin):
     publish.short_description = "Опубликовать"
     publish.allowed_permissions = ('change',)
 
+
 @admin.register(Category)
-class CategoryAdmin(DraggableMPTTAdmin):
+class CategoryAdmin(DraggableMPTTAdmin, TranslationAdmin):
     """Статичные страницы"""
     list_display = ('tree_actions', 'indented_title',)
     list_display_links = ('indented_title',)
@@ -53,7 +55,9 @@ class CategoryAdmin(DraggableMPTTAdmin):
 
 class PostAdminForm(forms.ModelForm):
     """Виджет редактора ckeditor"""
-    text = forms.CharField(required=False, label="Контент страницы", widget=CKEditorUploadingWidget())
+    text_kk = forms.CharField(required=False, label="Қазақша контент", widget=CKEditorUploadingWidget())
+    text_ru = forms.CharField(required=False, label="Контент на русском", widget=CKEditorUploadingWidget())
+    text_en = forms.CharField(required=False, label="English content", widget=CKEditorUploadingWidget())
     # category = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), required=True, widget=forms.CheckboxSelectMultiple, label='Категория')
 
     class Meta:
@@ -69,7 +73,7 @@ class FileItemInline(admin.TabularInline):
 
 
 @admin.register(Post)
-class PostAdmin(ActionPublish):
+class PostAdmin(ActionPublish, TranslationAdmin):
     """Статичные страницы"""
     list_display = ('get_image', "title", "published",'slug', "id", 'category', )
     list_display_links = ['get_image', 'title',]

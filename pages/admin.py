@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django.utils.text import slugify
+from modeltranslation.admin import TranslationAdmin
 
 from .models import Pages, FileItem, PhotoItem
 
@@ -37,7 +38,9 @@ class ActionPublish(admin.ModelAdmin):
 
 class PagesAdminForm(forms.ModelForm):
     """Виджет редактора ckeditor"""
-    text = forms.CharField(label="Контент страницы", widget=CKEditorUploadingWidget())
+    text_kk = forms.CharField(label="Қазақша", widget=CKEditorUploadingWidget())
+    text_ru = forms.CharField(label="На русском", widget=CKEditorUploadingWidget())
+    text_en = forms.CharField(label="На английском", widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Pages
@@ -52,7 +55,7 @@ class PhotoItemInline(admin.TabularInline):
     model = PhotoItem
 
 @admin.register(Pages)
-class PagesAdmin(admin.ModelAdmin):
+class PagesAdmin(TranslationAdmin):
     """Статичные страницы"""
     list_display = ("title", "published", 'slug', "id")
     list_editable = ("published", )

@@ -4,8 +4,8 @@ from django.utils import timezone
 # Create your models here.
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
-from sorl.thumbnail import get_thumbnail
 
+from django.utils.translation import gettext_lazy as _
 
 
 class Category(MPTTModel):
@@ -85,6 +85,7 @@ class Post(models.Model):
         blank=True,
         null=True
     )
+    video = models.CharField(_('Ссылка на видео'), max_length=255, blank=True, null=True)
     views = models.PositiveIntegerField("Просмотрено", default=0)
     tags = models.ManyToManyField(Tag, verbose_name='Теги')
 

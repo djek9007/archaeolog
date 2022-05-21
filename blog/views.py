@@ -55,10 +55,12 @@ class PostDetail(View):
     def get(self, request, **kwargs):
         post = get_object_or_404(Post, slug=kwargs.get("slug"))
         photoitems = post.photoitems.all()
+        fileitems = post.fileitems.all()
         posts_similar = Post.objects.filter(tags__in=post.tags.all())
         context = {
             'post': post,
             'photoitems': photoitems,
-            'posts_similar': posts_similar
+            'posts_similar': posts_similar,
+            'fileitems': fileitems
         }
         return render(request, 'blog/detail.html', context)

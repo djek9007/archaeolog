@@ -5,7 +5,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.views.generic import ListView, DetailView
 
-from employees.models import Employer, MonografiEmployer
+from employees.models import Employer
+from library.models import LibraryEmployer
 
 
 class EmployeesListView(ListView):
@@ -31,7 +32,7 @@ class EmployeesListView(ListView):
 class EmployeerDetailView(View):
     def get(self, request, pk):
         employer = get_object_or_404(Employer, pk=pk)
-        monografi = MonografiEmployer.objects.filter(employer=employer)
+        monografi = LibraryEmployer.objects.filter(employer=employer)
         context = {
             'employer': employer,
             'monografi': monografi
