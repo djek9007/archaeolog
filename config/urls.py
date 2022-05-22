@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """config URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,17 +17,20 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-
-from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
+from django.urls import path, include, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('page/', include("pages.urls")),
-    path('sotrudniki/', include("employees.urls", namespace='employees')),
-    path('', include("blog.urls", namespace='blog')),
+    path('i18n/', include('django.conf.urls.i18n')),
+]
 
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += i18n_patterns(
+    path('sotrudniki/', include("employees.urls", namespace='employees')),
+    path('', include('blog.urls', namespace='blog')),
+
+)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

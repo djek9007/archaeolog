@@ -1,12 +1,12 @@
 {% extends 'base_employers.html' %}
-{% load blog-tags  thumbnail static%}
+{% load blog-tags  thumbnail static i18n%}
 {% block title %}{{ category.name }}{% endblock %}
 {% block content %}
     		<section class="crumbs">
 			<div class="container">
 				<div class="crumbs__wrapper">
 					<svg>
-						<use xlink:href="./images/sprites.svg#home"></use>
+						<use xlink:href="{% static 'images/sprites.svg' %}#home"></use>
 					</svg>
 					<ol>
 						<li><a href="{% url 'blog:home' %}">Главная  </a></li>
@@ -38,12 +38,12 @@
 								<div class="pagination__btns">
 									<button class="pagination__btn pagination__btn--prev">
 										<svg>
-											<use xlink:href="./images/sprites.svg#left"></use>
+											<use xlink:href="{% static 'images/sprites.svg' %}#left"></use>
 										</svg>
 									</button>
 									<button class="pagination__btn pagination__btn--next">
 										<svg>
-											<use xlink:href="./images/sprites.svg#right"></use>
+											<use xlink:href="{% static 'images/sprites.svg#right' %}"></use>
 										</svg>
 									</button>
 								</div>
@@ -64,7 +64,7 @@
 					<aside class="page__aside">
 						<h2 class="title-h2">
 							<svg>
-								<use xlink:href="./images/sprites.svg#calendar"></use>
+								<use xlink:href="{% static 'images/sprites.svg' %}#calendar"></use>
 							</svg>Архив
 						</h2>
 						<div class="aside-menu aside-menu--nosticky">
@@ -79,7 +79,7 @@
 						</div>
 						<h2 class="title-h2">
 							<svg>
-								<use xlink:href="./images/sprites.svg#calendar"></use>
+								<use xlink:href="{% static 'images/sprites.svg' %}#calendar"></use>
 							</svg>Ближайшие события
 						</h2>
                         {% event_show count=2 as events %}

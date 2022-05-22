@@ -10,39 +10,26 @@
                 </svg>
                 <ol>
                     <li><a href="{% url 'blog:home' %}">Главная </a></li>
-                    <li><a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a></li>
-                    <li>
+                                        <li>
                         {{ post.title }}</li>
                 </ol>
             </div>
         </div>
     </section>
-    <section class="news-full page">
+     <section class="news-full page">
         <div class="container">
             <div class="page__container">
                 <main class="page__main">
                     <h1 class="title-h1">
                         {{ post.title }}
-                        <div class="news-full__date">
-                            {{ post.published_date|date:"d M Y" }}
-                            <div class="news-full__titlecat"><a
-                                    href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a></div>
-                        </div>
                     </h1>
-                    <div class="news-full__preview">
-                        {% thumbnail post.image "x380" as im %}
-                            <img src="{{ im.url }}">
-                        {% empty %}
-                            <img src="{% static 'images/no-image.png' %}" width="520" height="345">
-                        {% endthumbnail %}
-                    </div>
-
-                    <div class="typography">
+                                        <div class="typography">
                         {{ post.text|safe }}
                         {% if fileitems %}
                             {% for file in fileitems %}
-                                <hr>
+
                                 <a href="{{ file.file.url }}">{{ file.description }}</a>
+                                <hr>
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -59,23 +46,7 @@
 
                     {% endif %}
                 </main>
-                <aside class="page__aside">
-                    <h2 class="title-h2">
-                        <svg>
-                            <use xlink:href="{% static 'images/sprites.svg' %}#news-paper"></use>
-                        </svg>
-                        Похожие новости
-                    </h2>
-                    {% for post_similar in posts_similar %}
-                        <div class="news-item news-item--employee">
-                            <a class="news-item__title"
-                               href="{{ post_similar.get_absolute_url }}">{{ post_similar.title }}</a>
-                            <div class="news-item__date date-pub">
-                                {{ post_similar.published_date|date:"d M Y" }}</div>
-                        </div>
-                    {% endfor %}
 
-                </aside>
             </div>
         </div>
     </section>

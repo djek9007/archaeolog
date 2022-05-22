@@ -1,5 +1,6 @@
-{% load static %}
+
 <!DOCTYPE html>
+{% load static i18n%}
 <html lang="ru">
 	<head>
 		<meta charset="utf-8">
@@ -18,83 +19,15 @@
 		{% include '_inc/nav.html' %}
         {% block content %}{% endblock %}
 
-		<footer class="footer"> 
-			<div class="container"> 
-				<div class="footer__logo"> 
-					<div class="footer__logo-image"> <a href=""><img src="{% static 'images/logo2.svg' %}" alt=""></a></div>
-					<div class="footer__logo-text"> 
-						<p>
-							 Республиканское государственное предприятие на право хозяйственного ведения</p>
-						<p>
-							 <b>Институт археологии им. А.Х. Маргулана</b></p>
-						<p>
-							 Комитета науки Министерства образования и науки Республики Казахстан</p>
-					</div>
-				</div>
-				<div class="footer__middle"> 
-					<ul class="footer__nav nav">
-						<li><a href="">Об Институте</a></li>
-						<li><a href="">Структура</a></li>
-						<li><a href="">Сотрудники</a></li>
-						<li><a href="">Деятельность</a></li>
-						<li><a href="">Издания</a></li>
-						<li><a href="">Наши услуги</a></li>
-						<li><a href="">СМИ о нас</a></li>
-					</ul>
-					<div class="footer__social social"> <a href=""> 
-							<svg>
-								<use xlink:href="{% static 'images/sprites.svg#fb' %}"></use>
-							</svg></a><a href=""> 
-							<svg>
-								<use xlink:href="{% static 'images/sprites.svg#tg' %}"></use>
-							</svg></a><a href=""> 
-							<svg>
-								<use xlink:href="{% static 'images/sprites.svg#youtube' %}"></use>
-							</svg></a><a href=""> 
-							<svg>
-								<use xlink:href="{% static 'images/sprites.svg#insta' %}"></use>
-							</svg></a></div>
-				</div>
-				<div class="footer__btm"> 
-					<div class="footer__contacts"> 
-						<div class="footer__contact contact">
-							<div class="contact__ico"> 
-								<svg>
-									<use xlink:href="{% static 'images/sprites.svg#phone2' %}"></use>
-								</svg>
-							</div>
-							<div class="contact__desc"> 
-								<div class="contact__subtitle">
-									 Телефон</div>
-								<div class="contact__title">        <a href="">8 800 080 4747 </a></div>
-							</div>
-						</div>
-						<div class="footer__contact contact">
-							<div class="contact__ico"> 
-								<svg>
-									<use xlink:href="{% static 'images/sprites.svg#envelope' %}"></use>
-								</svg>
-							</div>
-							<div class="contact__desc"> 
-								<div class="contact__subtitle">
-									 Почта</div>
-								<div class="contact__title">        <a href="mailto:info@arhelogy.kz">info@arhelogy.kz</a></div>
-							</div>
-						</div>
-					</div>
-					<div class="footer__copyright">
-						 © 2009-2022 Институт археологии им. А.Х. Маргулана</div>
-				</div>
-			</div>
-		</footer>
-		<div class="is-hidden"> 
-			<form class="search-form" id="search" action=""> 
+		{% include '_inc/footer.html' %}
+		<div class="is-hidden">
+			<form class="search-form" id="search" action="">
 				<input class="search-form__input" type="text" placeholder="Поиск ключевому слову">
-				<button class="search-form__btn"> 
+				<button class="search-form__btn">
 					<div class="for-desktop">Поиск</div>
-					<div class="for-devices"> 
+					<div class="for-devices">
 						<svg>
-							<use xlink:href="{% static 'images/sprites.svg#search' %}"></use>
+							<use xlink:href="{% static 'images/sprites.svg' %}#search"></use>
 						</svg>
 					</div>
 				</button>

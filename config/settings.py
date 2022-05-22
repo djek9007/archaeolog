@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for config project.
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.flatpages',
 
     'blog.apps.BlogConfig',
     'menu.apps.MenuConfig',
@@ -59,6 +61,7 @@ INSTALLED_APPS = [
 SITE_ID =1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,7 +69,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -94,6 +97,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+        #ci73684_archdb vx8LR4jP
         'NAME': 'arch_db',
         'USER': 'arch_user',
         'PASSWORD': 'arch_user_2021+',
@@ -102,6 +106,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'ci73684_archdb',
+#         'USER': 'ci73684_archdb',
+#         'PASSWORD': 'vx8LR4jP',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         'OPTIONS': {'charset': 'utf8mb4', 'use_unicode': True,},
+#     }
+# }
 
 
 # Password validation
@@ -132,9 +147,9 @@ TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True
 
-USE_L10N = True
+# USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 gettext = lambda s: s
 

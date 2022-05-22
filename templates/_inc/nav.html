@@ -1,4 +1,4 @@
-{% load static mptt_tags menu-tags %}
+{% load static mptt_tags menu-tags i18n%}
 <header class="header header--index">
 			<div class="header__top-wrapper">
 				<div class="container">
@@ -7,31 +7,64 @@
 							<button class="btn-mobile-menu for-devices">
 								<div class="btn-mobile-menu__open">
 									<svg>
-										<use xlink:href="{% static 'images/sprites.svg#close' %}"></use>
+										<use xlink:href="{% static 'images/sprites.svg' %}#close"></use>
 									</svg>
 								</div>
 								<div class="btn-mobile-menu__close">
 									<svg>
-										<use xlink:href="{% static 'images/sprites.svg#menu' %}"></use>
+										<use xlink:href="{% static 'images/sprites.svg' %}#menu"></use>
 									</svg>
 								</div>
-							</button><a><img src="{% static 'images/logo.jpg' %}" alt=""></a>
+							</button><a href="{% url 'blog:home' %}"><img src="{% static 'images/logo.jpg' %}" alt=""></a>
 						</div>
 						<div class="header__nav">
 
 
    {% include 'tags/nav_tags.html' %}
 
+<form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+							<div class="lng for-devices lng--mobile">
+{% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    {% for language in languages %}
 
-							<div class="lng for-devices lng--mobile"><a href="">ҚАЗ</a><span class="is-active">
-									 РУС</span><a href="">ENG</a></div>
+            <a href="/{{ language.code }}{{ request.get_full_path|slice:'3:' }}"
+               lang="{{ language.code }}">
+                <span  class="{% if language.code == LANGUAGE_CODE %}is-active{% endif %}">
+                    {{ language.name_local|upper|slice:':3' }}</span>
+            </a>
+
+    {% endfor %}
+
+                            </div>
+</form>
 						</div>
 						<div class="header__wrap">
-							<div class="header__lng lng"> <a href="">ҚАЗ</a><span class="is-active">
-									 РУС</span><a href="">ENG</a></div>
+<form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+<div class="header__lng lng">
+{% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    {% for language in languages %}
+
+            <a href="/{{ language.code }}{{ request.get_full_path|slice:'3:' }}"
+               lang="{{ language.code }}">
+                <span  class="{% if language.code == LANGUAGE_CODE %}is-active{% endif %}">
+                    {{ language.name_local|upper|slice:':3' }}</span>
+            </a>
+
+    {% endfor %}
+</div>
+</form>
+
 							<div class="header__srch-btn"><a class="btn-search popup-with-form" href="#search">
 									<svg>
-										<use xlink:href="{% static 'images/sprites.svg#search' %}"></use>
+										<use xlink:href="{% static 'images/sprites.svg' %}#search"></use>
 									</svg></a></div>
 						</div>
 					</div>
@@ -49,10 +82,10 @@
 					</div>
 					<div class="header__links"> <a class="header__link header__link--add" href="">
 							<svg>
-								<use xlink:href="{% static 'images/sprites.svg#map' %}"></use>
+								<use xlink:href="{% static 'images/sprites.svg' %}#map"></use>
 							</svg>Адрес на карте</a><a class="header__link" href="">
 							<svg>
-								<use xlink:href="{% static 'images/sprites.svg#phone' %}"></use>
+								<use xlink:href="{% static 'images/sprites.svg' %}#phone"></use>
 							</svg>Контакты</a></div>
 				</div>
 			</div>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib import admin
@@ -24,7 +25,7 @@ class DepartmentAdmin(DraggableMPTTAdmin, TranslationAdmin):
     # list_filter = ("published", )
     # search_fields = ("name",)
     prepopulated_fields = {"slug": ("name", )}
-    fields = ('parent', 'name', 'slug', 'description', 'published',)
+    fields = ('parent', 'name', 'slug', 'description', 'published', )
 
     actions = ['unpublish', 'publish']
     # сверху админки показывает сохранить удалить
@@ -56,7 +57,7 @@ class EmployerAdmin(TranslationAdmin):
     """Админка для сотруддника"""
     list_display = ('get_photo', 'name', 'regali', 'email', 'published', 'edit_date', 'views',)
     list_display_links = ('get_photo', 'name',)
-    fields =('department','name', 'regali', 'email', 'get_photo', 'photo', 'profile', 'publication','projects','published_date','published',  )
+    fields =('department','name', 'regali', 'email', 'get_photo', 'photo', 'profile', 'publication','projects','published_date','published',  'is_active',)
 
     form = EmployerAdminForm
     save_on_top = True

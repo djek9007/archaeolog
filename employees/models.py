@@ -1,17 +1,22 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
 from django.utils import timezone
+from dynamic_filenames import FilePattern
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from sorl.thumbnail import get_thumbnail
 
+page_file_item = FilePattern(
+    filename_pattern='{app_label:.25}/{model_name:.30}/{uuid:base32}{ext}'
+)
 
 class Department(MPTTModel):
     """Модель отделов"""
     name = models.CharField("Название", max_length=100)
-    slug = models.CharField("url", max_length=50, unique=True, blank=True, null=True)
+    slug = models.SlugField("url", max_length=50, unique=True, blank=True, null=True)
     description = models.TextField(verbose_name='Описание отдела')
     parent = TreeForeignKey(
         'self',
@@ -52,7 +57,7 @@ class Employer(models.Model):
     name= models.CharField(verbose_name="ФИО сотрудника", max_length=200)
     regali= models.CharField(verbose_name="Регали сотрудника, должность", max_length=255)
     email= models.EmailField(verbose_name="Почта сотрудника", max_length=100)
-    photo = models.ImageField('Фото сотрудника', upload_to='employers/photo/%Y/%m/%d/', blank=True, null=True)
+    photo = models.ImageField('Фото сотрудника', upload_to=page_file_item, blank=True, null=True)
     profile = models.TextField(_("Профиль сотрудника"), blank=True, null=True)
     publication = models.TextField(_('Список основных публикаций'), blank=True, null=True)
     projects = models.TextField(_('Проекты'), blank=True, null=True)

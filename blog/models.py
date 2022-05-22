@@ -1,12 +1,17 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 # Create your models here.
+from dynamic_filenames import FilePattern
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
 from django.utils.translation import gettext_lazy as _
 
+page_file_item = FilePattern(
+    filename_pattern='{app_label:.25}/{model_name:.30}/{uuid:base32}{ext}'
+)
 
 class Category(MPTTModel):
     """Класс модели категорий сетей"""
@@ -37,8 +42,8 @@ class Category(MPTTModel):
         return reverse('blog:category_post', kwargs={'category_slug': self.slug})
 
 
-def post_photo_path(instance, filename):
-    return 'posts/post_{0}/{1}'.format(instance.pk, filename)
+# def post_photo_path(instance, filename):
+#     return 'posts/post_{0}/{1}'.format(instance.pk, filename)
 
 class Tag(models.Model):
     """Модель тегов"""
@@ -71,7 +76,7 @@ class Post(models.Model):
         blank=True,
         null=True
     )
-    image = models.ImageField("Главная фотография", upload_to=post_photo_path)
+    image = models.ImageField("Главная фотография", upload_to=page_file_item)
     category = TreeForeignKey(
         Category,
         verbose_name="Категория",
@@ -96,24 +101,24 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        if self.pk is None:
-            saved_image = self.image
-            self.image = None
-            super(Post, self).save(*args, **kwargs)
-            self.image = saved_image
-
-        super(Post, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.pk is None:
+    #         saved_image = self.image
+    #         self.image = None
+    #         super(Post, self).save(*args, **kwargs)
+    #         self.image = saved_image
+    #
+    #     super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('blog:detail_post', kwargs={'category_slug': self.category.slug,'slug': self.slug})
-
-def post_photo_item(instance, filename):
-
-    return 'posts/post_item_{0}/{1}'.format(instance.pk, filename)
+#
+# def post_photo_item(instance, filename):
+#
+#     return 'posts/post_item_{0}/{1}'.format(instance.pk, filename)
 
 class PhotoItem(models.Model):
-    image = models.ImageField(upload_to='posts/item_photo/%Y/%m/%d/', verbose_name='Галерея', blank=True, null=True, unique=True)
+    image = models.ImageField(upload_to=page_file_item, verbose_name='Галерея', blank=True, null=True, unique=True)
     photo = models.ForeignKey(Post, related_name='photoitems', on_delete=models.CASCADE)
     description = models.CharField(verbose_name='Описание', max_length=250, blank=True, null=True)
     def __str__(self):
@@ -124,18 +129,18 @@ class PhotoItem(models.Model):
         verbose_name_plural = "Галерея постов"
 
 
-
-def post_file_item(filename):
-
-    return 'files/post/%Y/%m/%d/{0}/'.format(filename)
+#
+# def post_file_item(filename):
+#
+#     return 'files/post/%Y/%m/%d/{0}/'.format(filename)
 
 
 class FileItem(models.Model):
-    file = models.FileField(upload_to=post_file_item, verbose_name='Файлы', blank=True, null=True, unique=True)
+    file = models.FileField(upload_to=page_file_item, verbose_name='Файлы', blank=True, null=True, unique=True)
     post = models.ForeignKey(Post, related_name='fileitems', on_delete=models.CASCADE)
     description = models.CharField(verbose_name='Описание', max_length=250, blank=True, null=True)
-    def __str__(self):
-        return str(self.file)
+    # def __str__(self):
+    #     return str(self.file)
 
     class Meta:
         verbose_name = "Файл для прикрепление"

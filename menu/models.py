@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 
 # Create your models here.
@@ -9,7 +10,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 class Menu(MPTTModel):
     """Класс модели категорий сетей"""
     name = models.CharField("Название", max_length=100)
-    slug = models.CharField("url", max_length=50, unique=True, blank=True, null=True)
+    slug = models.SlugField("url", max_length=50, unique=True, blank=True, null=True)
     parent = TreeForeignKey(
         'self',
         verbose_name="Родительская категория",

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib import admin
@@ -11,6 +12,7 @@ from library.models import LibraryEmployer, CategoryLibrary
 @admin.register(CategoryLibrary)
 class CategoryLibraryAdmin(TranslationAdmin):
     list_display =('name',)
+    prepopulated_fields = {"slug": ("name",)}
 
 
 class MonografiEmployerAdminForm(forms.ModelForm):
@@ -22,4 +24,5 @@ class MonografiEmployerAdminForm(forms.ModelForm):
 class LibraryEmployerAdmin(TranslationAdmin):
     list_display = ('title', 'published', )
     list_filter = ('employer', 'published',)
+
     form = MonografiEmployerAdminForm

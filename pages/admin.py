@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from django.contrib import admin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
@@ -68,7 +69,7 @@ class PagesAdmin(TranslationAdmin):
     # сверху админки показывает сохранить удалить
     save_on_top = True
     # readonly_fields = ("slug",)
-
+    list_editable = ('slug',)
     # def save_model(self, request, obj, form, change):
     #     # don't overwrite manually set slug
     #     if form.cleaned_data['slug']:

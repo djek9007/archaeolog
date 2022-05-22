@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -8,6 +9,8 @@ from django.views import View
 from django.views.generic import ListView
 
 from blog.models import Post, Category
+from employees.models import Department
+from pages.models import Pages
 
 
 class Home(View):
@@ -64,3 +67,25 @@ class PostDetail(View):
             'fileitems': fileitems
         }
         return render(request, 'blog/detail.html', context)
+
+class PageView(View):
+
+    def get(self, request, **kwargs):
+        post = get_object_or_404(Pages, slug=kwargs.get("page_slug"))
+        photoitems = post.photoitems.all()
+        fileitems = post.fileitems.all()
+
+        context = {
+            'post': post,
+            'photoitems': photoitems,
+            'fileitems': fileitems
+        }
+        return render(request, 'pages/detail.html', context)
+
+class LaboratoriiView(View):
+    def get(self, request, **kwargs):
+        laboratory = Department.objects.filter(id=1).all()
+        context = {
+            'laboratory': laboratory,
+        }
+        return render(request, 'pages/detail.html', context)
