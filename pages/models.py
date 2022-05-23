@@ -14,7 +14,7 @@ from dynamic_filenames import FilePattern
 class Pages(models.Model):
     """Страницы"""
     title = models.CharField(_("Заголовок"), max_length=250)
-    slug = models.CharField("ссылка", max_length=50, unique=True)
+    slug = models.SlugField("ссылка", max_length=50, unique=True)
     image = models.ImageField("фотография", upload_to="pages/", blank=True, null=True)
     text = models.TextField(_("Текст"), blank=True, null=True)
     edit_date = models.DateTimeField(

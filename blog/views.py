@@ -71,7 +71,7 @@ class PostDetail(View):
 class PageView(View):
 
     def get(self, request, **kwargs):
-        post = get_object_or_404(Pages, slug=kwargs.get("page_slug"))
+        post = get_object_or_404(Pages, slug=kwargs.get('slug'))
         photoitems = post.photoitems.all()
         fileitems = post.fileitems.all()
 

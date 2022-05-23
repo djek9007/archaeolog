@@ -2,7 +2,7 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib import admin
-
+from admin_auto_filters.filters import AutocompleteFilter
 # Register your models here.
 from django.utils.safestring import mark_safe
 from modeltranslation.admin import TranslationAdmin
